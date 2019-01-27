@@ -207,7 +207,8 @@
     }
 
     function get_channel_name(link) {
-        return link.dataset.ytid;
+        var url_match = link.href.match(/[^\/]+$/);
+        return url_match?url_match[0]:null;
     }
 
     function loop_over(list, callback) {
@@ -243,7 +244,9 @@
             details = details[0].children,
             debug_console.log(details);
             user = get_channel_name(details[1].children[0]);
-            check_and_block_video(video, user);
+            if(user) {
+                check_and_block_video(video, user);
+            }
         }
     }
 
